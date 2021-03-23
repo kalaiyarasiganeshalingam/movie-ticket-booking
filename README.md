@@ -1,1 +1,24 @@
 # movie-ticket-booking
+
+This project has 2 parts.
+
+- Ticket Booking
+- Ticket Booking Server
+
+### Ticket Booking Server
+This is a server, which is used to store and detrive data to/from the database.
+
+### Ticket Booking
+This is used to get the necessary data from the user to book the movie ticket.
+
+### Run & Test
+
+Execute the below commands to test the source.
+- To run the ticket booking server:
+
+        bal run ticket-booking-server/
+    
+- To run the ticket booking:
+    
+        bal run ticket-booking
+        

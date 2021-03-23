@@ -1,6 +1,6 @@
 # movie-ticket-booking
 
-This project has 2 parts.
+This project has following subpart to book the movie ticket.
 
 - Ticket Booking
 - Ticket Booking Server

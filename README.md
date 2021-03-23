@@ -5,11 +5,11 @@ This project has following subpart to book the movie ticket.
 - Ticket Booking
 - Ticket Booking Server
 
-### Ticket Booking Server
-This is a server, which is used to store and detrive data to/from the database.
-
 ### Ticket Booking
 This is used to get the necessary data from the user to book the movie ticket.
+
+### Ticket Booking Server
+This is a server, which is used to store and detrive data to/from the database.
 
 ### Run & Test
 

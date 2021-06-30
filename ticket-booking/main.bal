@@ -4,7 +4,7 @@ import ballerina/log;
 import ballerina/regex;
 
 
-http:Client httpClient = check new("http://localhost:9090");
+http:Client httpClient = check new("http://localhost:9092");
 
 string name = "";
 string seatNo = "";
@@ -12,16 +12,12 @@ boolean paidPayment = false;
 
 public function main(string... args) returns error? {
     http:Request request = new;
-    var output = httpClient->post("/createTable", request);
-    if (output is http:Response) {
-        name  = io:readln(string `Enter your name: `);
-        retry<MyRetryManager>() {
-            var result = check getName();
-            result = check getSeatNo();
-            paidPayment = check isPaymentPaid();
-        }
-    } else {
-        return output;
+    string output = check httpClient->post("/createTable", request);
+    name  = io:readln(string `Enter your name: `);
+    retry<MyRetryManager>() {
+        var result = check getName();
+        result = check getSeatNo();
+        paidPayment = check isPaymentPaid();
     }
     if (paidPayment) {
         json jsonPart = {
@@ -29,7 +25,7 @@ public function main(string... args) returns error? {
             seatNo: seatNo
         };
         request.setJsonPayload(jsonPart);
-        var result = httpClient->post("/update", request);
+        string result = check httpClient->post("/update", request);
         io:println("Booking successfully completed.");
     }
 }
@@ -63,7 +59,7 @@ function getSeatNo() returns error|string {
     string[] seats = [];
     var result = httpClient->get("/seatNo", targetType = string);
     if (result is string) {
-        seats = regex:split(result.substring(2, result.length()), ", ");
+        seats = regex:split(result.substring(5, result.length()), ", ");
     } else if (!(result.message() == "No payload")) {
         log:printError(result.message());
         return result;
@@ -83,7 +79,7 @@ function getSeatNo() returns error|string {
 }
 
 function isPaymentPaid() returns boolean|error {
-    string cardNo = io:readln(string `Enter your credit card no: `);
+    string cardNo = io:readln(string `Enter your credit card no[The no shoud be contain 15 character]: `);
     if (cardNo.length() < 15 || int:fromString(cardNo) is error) {
         retry<MyRetryManager>() {
             var result = check getName();

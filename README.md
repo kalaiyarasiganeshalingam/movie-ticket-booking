@@ -5,6 +5,10 @@ This project has following subpart to book the movie ticket.
 - Ticket Booking
 - Ticket Booking Server
 
+## Prerequisites
+
+* Install Ballerina Swan Lake Beta1
+
 ### Ticket Booking
 This is used to get the necessary data from the user to book the movie ticket.
 
